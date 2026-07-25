@@ -1,5 +1,5 @@
 /**
- * IBANforge — Static compliance reference lists.
+ * Static compliance reference lists.
  *
  * FATF jurisdiction lists and country-level sanction regimes. The FATF
  * publishes only HTML statements (no machine-readable feed), so these lists

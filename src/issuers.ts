@@ -1,5 +1,5 @@
 /**
- * IBANforge — Issuer classification for vIBAN detection
+ * Issuer classification for vIBAN detection
  *
  * Maps known BIC8 codes to issuer types. Helps agents identify
  * whether an IBAN belongs to a traditional bank or a digital/EMI issuer

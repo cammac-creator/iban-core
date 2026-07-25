@@ -65,8 +65,8 @@ export function validateBIC(input: string): BicResult {
 
   // Test BIC: second char of location code is "0" (ISO 9362 §5.3), OR the
   // country code is the SWIFT placeholder "XX" (test/internal). "XX" stays a
-  // valid format, but it must surface as a test BIC so compliance/risk callers
-  // never treat it as a real institution.
+  // valid format, but it must surface as a test BIC so a caller never mistakes
+  // it for a real institution.
   const isTestBic = locationCode[1] === '0' || countryCode === 'XX';
 
   return {

@@ -1,5 +1,6 @@
-/** What the library can compute offline. Everything the paid API resolves
- *  (bank name, BIC, Swiss clearing, sanctions) is deliberately absent. */
+/** What the library can compute offline. Anything that needs a database
+ *  (bank name, BIC, Swiss clearing, sanctions) is deliberately absent —
+ *  the `enrich` field says where to resolve it. */
 export interface IbanResult {
   iban: string;
   valid: boolean;

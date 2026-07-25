@@ -116,7 +116,7 @@ describe('validateBIC', () => {
 
   it('accepts the "XX" placeholder country but flags it as a test BIC', () => {
     // XX is the SWIFT test/internal placeholder — valid format, but it must
-    // never read as a real institution for compliance/risk callers.
+    // never read as a real institution.
     const result = validateBIC('ABCDXX12');
     expect(result.valid).toBe(true);
     expect(result.country_code).toBe('XX');

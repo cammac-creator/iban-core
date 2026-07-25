@@ -1,5 +1,5 @@
 /**
- * IBANforge — Country data: IBAN lengths (ISO 13616), BBAN structures, and name resolution
+ * Country data: IBAN lengths (ISO 13616), BBAN structures, and name resolution
  */
 
 // ---------------------------------------------------------------------------
@@ -55,12 +55,12 @@ export const BBAN_STRUCTURE: Record<string, BBANStructure> = {
   NL: { bankCode: [0, 4], accountNumber: [4, 10] },
   NO: { bankCode: [0, 4], accountNumber: [4, 7] },
   // PL: the full 8-digit national routing number is the bank identifier
-  // (SWIFT registry). A shorter [0,3] never matched the bic_data.json keys.
+  // (SWIFT registry). A shorter [0,3] is not a routing number at all.
   PL: { bankCode: [0, 8], accountNumber: [8, 16] },
   PT: { bankCode: [0, 4], branchCode: [4, 4], accountNumber: [8, 13] },
   SE: { bankCode: [0, 3], accountNumber: [3, 17] },
   // SI: the 5-digit code is the bank identifier (SWIFT registry); [0,2] was
-  // too short to match the bic_data.json keys.
+  // too short and cut the identifier in half.
   SI: { bankCode: [0, 5], accountNumber: [5, 10] },
   // SK: 4-digit bank code, 6-digit account prefix (the SWIFT registry isolates
   // it as the branch field), then 10-digit account number. Folding the prefix
@@ -73,11 +73,11 @@ export const BBAN_STRUCTURE: Record<string, BBANStructure> = {
   ST: { bankCode: [0, 4], branchCode: [4, 4], accountNumber: [8, 13] },
   VA: { bankCode: [0, 3], accountNumber: [3, 15] },
   XK: { bankCode: [0, 2], branchCode: [2, 2], accountNumber: [4, 12] },
-  // EU EMI / vIBAN hubs — these were missing a BBAN_STRUCTURE, which silently
-  // disabled BIC/issuer/risk detection for them. LT especially is the European
-  // EMI capital (Revolut, Paysera, Wise… are licensed there), so vIBAN/EMI
-  // detection — a core compliance selling point — was dead exactly where it
-  // matters most. Positions from the committed SWIFT IBAN Registry snapshot.
+  // EU EMI / vIBAN hubs — these were missing a BBAN_STRUCTURE, so bank_code
+  // came back empty and no issuer classification was possible. LT especially
+  // is the European EMI capital (Revolut, Paysera, Wise… are licensed there),
+  // so vIBAN/EMI detection was dead exactly where it matters most. Positions
+  // from the SWIFT IBAN Registry.
   LT: { bankCode: [0, 5], accountNumber: [5, 11] },
   EE: { bankCode: [0, 2], accountNumber: [2, 14] },
   LV: { bankCode: [0, 4], accountNumber: [4, 13] },
@@ -92,10 +92,8 @@ export const BBAN_STRUCTURE: Record<string, BBANStructure> = {
   // ------------------------------------------------------------------------
   // 2026-07-10 full-coverage sync: the 47 countries below were supported in
   // IBAN_LENGTHS but had NO BBAN_STRUCTURE, so bank_code came back empty and
-  // BIC lookup / issuer classification / risk_indicators were silently dead
-  // for them (including SEPA members BG, RO, IS). Positions are taken from
-  // the committed SWIFT IBAN Registry snapshot
-  // (scripts/data/iban-registry-2026-05-22.json).
+  // issuer classification was silently dead for them (including SEPA members
+  // BG, RO, IS). Positions are taken from the SWIFT IBAN Registry.
   // ------------------------------------------------------------------------
   AE: { bankCode: [0, 3], accountNumber: [3, 16] },
   AL: { bankCode: [0, 8], accountNumber: [8, 16] },
@@ -151,9 +149,8 @@ export const BBAN_STRUCTURE: Record<string, BBANStructure> = {
 // (<len>!<charset> groups: n = digits, a = uppercase letters, c = alphanumeric).
 //
 // Source of truth: SWIFT IBAN Registry Release 101 (via python-stdnum's
-// iban.dat, a direct mirror of swift.com's iban-registry-v101.txt — the same
-// source used for scripts/data/iban-registry-2026-05-22.json). Cross-checked
-// 2026-07-10 against two independent open-source references:
+// iban.dat, a direct mirror of swift.com's iban-registry-v101.txt).
+// Cross-checked 2026-07-10 against two independent open-source references:
 //   - schwifty (mdomke/schwifty iban_registry/generated.json): 89/89 identical.
 //   - ibantools (Simplify/ibantools countrySpecs): 81/89 identical; the 8
 //     divergences (BY, DO, GE, IE, PK, PS, TR, VG) were resolved AGAINST

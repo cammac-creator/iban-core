@@ -53,8 +53,8 @@ describe('IBAN Validation', () => {
 
     it('EU EMI hubs (LT/EE/LV/MT/CY) decompose a non-empty bank_code', () => {
       // Regression guard: these had no BBAN_STRUCTURE, so bank_code came back
-      // empty and enrichResult bailed early — silently killing BIC/EMI/vIBAN
-      // detection for the European EMI capital (LT) and neighbours.
+      // empty — silently killing any issuer classification downstream, for
+      // the European EMI capital (LT) and its neighbours of all places.
       const cases: Array<[string, string]> = [
         ['LT121000011101001000', '10000'],
         ['EE382200221020145685', '22'],
@@ -186,14 +186,14 @@ describe('IBAN Validation', () => {
     });
 
     it('PL extracts the full 8-digit routing number as bank code', () => {
-      // Regression: was [0,3], too short to match the bic_data.json lookup keys.
+      // Regression: was [0,3], which truncated the national routing number.
       const r = validate('PL61109010140000071219812874');
       expect(r.valid).toBe(true);
       expect(r.bban?.bank_code).toBe('10901014');
     });
 
     it('SI extracts the 5-digit bank identifier', () => {
-      // Regression: was [0,2], too short to match the bic_data.json lookup keys.
+      // Regression: was [0,2], which cut the 5-digit bank identifier in half.
       const r = validate('SI56263300012039086');
       expect(r.valid).toBe(true);
       expect(r.bban?.bank_code).toBe('26330');
@@ -241,8 +241,8 @@ describe('IBAN Validation', () => {
       expect(r.valid, `${cc} ${iban}: ${r.error} ${r.error_detail ?? ''}`).toBe(true);
       expect(r.country?.code).toBe(cc);
       // Full-coverage guarantee: bank_code must decompose for every country
-      // (47 countries used to return an empty bank_code and lost all
-      // BIC/issuer/risk enrichment).
+      // (47 countries used to return an empty bank_code, which leaves nothing
+      // to classify an issuer with).
       expect(r.bban?.bank_code, `${cc}: bank_code`).not.toBe('');
       expect(r.bban?.bank_code.length).toBe(BBAN_STRUCTURE[cc].bankCode[1]);
     });
