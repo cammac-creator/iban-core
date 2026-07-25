@@ -643,7 +643,8 @@ export function getCountryRisk(countryCode: string): CountryRisk {
 }
 
 // ---------------------------------------------------------------------------
-// Dynamic country name resolution via Intl API (for BIC lookups with any code)
+// Dynamic country name resolution via Intl API (covers any ISO 3166-1 code,
+// not just the IBAN countries)
 // ---------------------------------------------------------------------------
 
 const displayNames = new Intl.DisplayNames(['en'], { type: 'region' });

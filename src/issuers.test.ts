@@ -239,7 +239,7 @@ describe('classifyIssuer', () => {
 
   describe('generated register index (stage 1b)', () => {
     it('GENERATED_ISSUERS has the expected scale (regression guard)', () => {
-      // Catches a silent build-script breakage producing few/zero entries.
+      // Catches a truncated or empty regeneration of issuers-generated.ts.
       expect(Object.keys(GENERATED_ISSUERS).length).toBeGreaterThan(800);
     });
 

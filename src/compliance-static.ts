@@ -33,9 +33,9 @@ export const FATF_GREY_LIST: string[] = [
 /**
  * FATF members whose membership is SUSPENDED. Russia's membership has been
  * suspended since 24 February 2023 (unchanged through the June 2026 plenary).
- * A suspended member is NOT a member in good standing — reporting it as
- * `member` was factually wrong. Scoring treats `suspended` at least as
- * severely as `non_member`.
+ * A suspended member is NOT a member in good standing, so it is kept out of
+ * FATF_MEMBERS: a caller that scores jurisdictions should treat `suspended`
+ * at least as severely as a non-member.
  */
 export const FATF_SUSPENDED: string[] = ['RU'];
 

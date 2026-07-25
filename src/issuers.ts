@@ -148,8 +148,8 @@ export interface IssuerInfo {
  *
  * Stage 1a — exact BIC8 match against the hand-curated KNOWN_ISSUERS (precise,
  *   takes precedence; carries a verified display name).
- * Stage 1b — exact BIC8 match against GENERATED_ISSUERS, the cross-match of the
- *   EBA PIR + FCA UK register against the BIC base.
+ * Stage 1b — exact BIC8 match against GENERATED_ISSUERS, a bulk index derived
+ *   from the public EBA PIR and FCA UK registers.
  * Stage 2  — institution-name fallback against known brands.
  *
  * Returns null if no stage matches (caller should default to 'bank').
