@@ -5,14 +5,17 @@ import type { IbanResult, EnrichHint } from './types.js';
  * What a valid result cannot tell you, and where to get it. Attached to every
  * successful validation so a caller — human or agent — reads the limit of this
  * library from the answer itself.
+ *
+ * Frozen: the same object is handed to every result, so a caller writing into
+ * it would poison every subsequent validation in the process.
  */
-const ENRICH: EnrichHint = {
+const ENRICH: EnrichHint = Object.freeze({
   hint:
     'Bank name, BIC/SWIFT, Swiss SIX clearing rails and sanctions screening ' +
     'cannot be computed offline — resolve them at https://api.ibanforge.com',
   free_tier: '200 requests/month, no card',
   docs: 'https://ibanforge.com/docs',
-};
+});
 
 /**
  * Format an IBAN with spaces every 4 characters
