@@ -477,9 +477,10 @@ export function checkBBANStructure(countryCode: string, bban: string): BbanCheck
 }
 
 /**
- * SWIFT-notation charset of each logical BBAN field (for /v1/iban/structure),
- * e.g. DE bank_code → '8!n', MU bank_code → '4!a2!n'. Null when the country
- * has no compiled spec (never the case for supported countries).
+ * SWIFT-notation charset of each logical BBAN field, e.g. DE bank_code → '8!n',
+ * MU bank_code → '4!a2!n'. Useful to describe or document a country's BBAN
+ * layout field by field. Null when the country has no compiled spec (never the
+ * case for supported countries).
  */
 export function getBBANFieldSpec(countryCode: string, start: number, length: number): string | null {
   const compiled = COMPILED_BBAN[countryCode];
@@ -586,22 +587,22 @@ export function getSepaInfo(countryCode: string): SepaInfo {
 // ---------------------------------------------------------------------------
 // Country risk classification (AML/CFT perspective)
 //
-// ⚠️  This is a DELIBERATELY SEPARATE axis from the DB-backed FATF/sanctions
-//     signal. `calculateRiskScore` already weights the live FATF list
-//     (black +30 / grey +20) and sanctioned countries (+50) read from the
-//     compliance DB. getCountryRisk's output is layered ON TOP as an
-//     ADDITIONAL country_risk indicator (+20 high / +10 elevated). The two
-//     are meant to STACK conservatively — do NOT re-derive these sets from
-//     fatf_countries to "deduplicate", as that would DOWNGRADE the score of
-//     sanctioned/grey-listed countries (e.g. RU would drop high→elevated).
+// `getCountryRisk` returns an EDITORIAL, offline classification of a country
+// into 'standard' | 'elevated' | 'high'. It captures the broader AML picture:
+// offshore financial centres (VG/MU/SC), conflict zones (UA), jurisdictions
+// under countermeasures, and other flagged jurisdictions.
 //
-//     This list captures the BROADER editorial AML picture that the FATF feed
-//     alone misses: offshore financial centres (VG/MU/SC), conflict zones (UA),
-//     and EBA-flagged jurisdictions. Recalibrate on the same cadence as the
-//     FATF lists in compliance-static.ts (FATF_AS_OF — after each plenary,
-//     3×/year) and whenever a jurisdiction's standing materially changes.
-//     Any reclassification of a specific country is an EXPLICIT, dated edit
-//     here — never folded into a "bug fix".
+// ⚠️  It is an INDICATOR, not a verdict, and not a substitute for a live
+//     screening feed. It ships as a static table so the library stays offline
+//     and dependency-free; it is therefore only as fresh as its last edit.
+//     Callers who need authoritative, up-to-date standing must combine it with
+//     their own current source. Treat the three levels as a coarse triage
+//     signal to be layered on top of such a source, never as its replacement.
+//
+//     Recalibrate on the FATF plenary cadence (3×/year) and whenever a
+//     jurisdiction's standing materially changes. Any reclassification of a
+//     specific country is an EXPLICIT, dated edit here — never folded into
+//     a "bug fix".
 // ---------------------------------------------------------------------------
 
 export type CountryRisk = 'standard' | 'elevated' | 'high';
