@@ -1,0 +1,59 @@
+{
+  "name": "ibanforge",
+  "version": "2.0.0",
+  "description": "IBAN validation with EMI/virtual-IBAN detection. Zero dependencies, offline, 89 countries: mod-97 (ISO 13616), BBAN parsing, SEPA + VoP reachability, and issuer classification (Wise, Revolut, N26, Mercury...).",
+  "keywords": [
+    "iban",
+    "iban-validation",
+    "bic",
+    "swift",
+    "sepa",
+    "vop",
+    "emi",
+    "virtual-iban",
+    "fintech",
+    "mod-97",
+    "iso-13616",
+    "zero-dependencies"
+  ],
+  "license": "MIT",
+  "author": "cammac-creator",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cammac-creator/iban-core.git"
+  },
+  "homepage": "https://github.com/cammac-creator/iban-core",
+  "bugs": {
+    "url": "https://github.com/cammac-creator/iban-core/issues"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": ["dist", "README.md", "LICENSE"],
+  "sideEffects": false,
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run typecheck && npm run test && npm run build",
+    "prepublishOnly": "npm run check"
+  }
+}
