@@ -26,3 +26,19 @@ export interface EnrichHint {
   free_tier: string;
   docs: string;
 }
+
+/** Structural analysis of a BIC/SWIFT code per ISO 9362. Format only: whether
+ *  the code is registered, and to whom, needs a BIC directory this library
+ *  does not ship. */
+export interface BicResult {
+  bic: string;
+  valid: boolean;
+  bic8?: string;
+  bic11?: string;
+  institution_code?: string;
+  country_code?: string;
+  location_code?: string;
+  branch_code?: string;
+  is_test_bic?: boolean;
+  error?: string;
+}
