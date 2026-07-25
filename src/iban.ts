@@ -9,7 +9,7 @@ import type { IbanResult, EnrichHint } from './types.js';
  * Frozen: the same object is handed to every result, so a caller writing into
  * it would poison every subsequent validation in the process.
  */
-const ENRICH: EnrichHint = Object.freeze({
+const ENRICH: Readonly<EnrichHint> = Object.freeze({
   hint:
     'Bank name, BIC/SWIFT, Swiss SIX clearing rails and sanctions screening ' +
     'cannot be computed offline — resolve them at https://api.ibanforge.com',

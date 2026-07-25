@@ -17,7 +17,8 @@ export interface IbanResult {
     | 'invalid_check_digits'
     | 'invalid_bban_structure';
   error_detail?: string;
-  enrich?: EnrichHint;
+  /** Frozen at runtime: the same object is shared by every result. */
+  enrich?: Readonly<EnrichHint>;
 }
 
 /** Machine-readable pointer to what this library cannot know. An assistant

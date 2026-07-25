@@ -604,7 +604,12 @@ export function getSepaInfo(countryCode: string): SepaInfo {
 
 export type CountryRisk = 'standard' | 'elevated' | 'high';
 
-/** FATF black list / EU high-risk third countries (updated periodically) */
+/**
+ * Jurisdictions treated as highest risk here: those under active
+ * countermeasures or sustained conflict. This is an editorial selection, NOT
+ * the FATF "Call for Action" list — KP, IR and MM issue no IBAN, so they never
+ * reach this table.
+ */
 const HIGH_RISK = new Set([
   'RU', // Russia — FATF countermeasures
   'BY', // Belarus — FATF countermeasures
