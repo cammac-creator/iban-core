@@ -1,7 +1,7 @@
 {
   "name": "ibanforge",
   "version": "2.0.0",
-  "description": "IBAN validation with EMI/virtual-IBAN detection. Zero dependencies, offline, 89 countries: mod-97 (ISO 13616), BBAN parsing, SEPA + VoP reachability, and issuer classification (Wise, Revolut, N26, Mercury...).",
+  "description": "IBAN validation with EMI/virtual-IBAN detection. Zero dependencies, offline, 89 countries: mod-97 (ISO 13616), BBAN parsing, SEPA + VoP reachability, and issuer classification (Wise, Revolut, N26, Monzo...).",
   "keywords": [
     "iban",
     "iban-validation",

@@ -28,7 +28,7 @@ classifyIssuer('TRWIGB2L');   // { type: 'emi', name: 'Wise' }
 
 - **mod-97 validation** (ISO 13616) and BBAN parsing for **89 countries**
 - **SEPA membership** and **VoP obligation** (EU 2024/886) per country
-- **EMI / virtual-IBAN detection** — tells a real bank apart from Wise, Revolut, N26, Mercury or Modulr
+- **EMI / virtual-IBAN detection** — tells a real bank apart from Wise, Revolut, N26, Monzo or Modulr
 - **BIC format validation** (ISO 9362)
 - A coarse, **editorial country risk indicator** for AML/CFT triage, offline
 

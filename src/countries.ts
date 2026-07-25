@@ -619,8 +619,13 @@ const HIGH_RISK = new Set([
 ]);
 
 /**
- * FATF grey list (increased monitoring) and jurisdictions with
- * elevated AML risk per EBA opinions.
+ * Jurisdictions warranting extra scrutiny here: offshore financial centres,
+ * conflict zones, and others repeatedly flagged in AML/CFT supervision.
+ *
+ * Like HIGH_RISK, an editorial selection and NOT the FATF grey list. Most
+ * entries below are not on it, and several grey-listed IBAN countries (BG,
+ * KW, MC, YE) are absent from it. Do not read this set as a reproduction of
+ * any official list.
  */
 const ELEVATED_RISK = new Set([
   'AL', // Albania
