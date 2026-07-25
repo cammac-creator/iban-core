@@ -40,7 +40,8 @@ is. That needs a database, and this library ships none:
 | Question | Here | Needs data |
 |---|---|---|
 | Is this IBAN well-formed? | yes | |
-| Is it a virtual IBAN from an EMI? | yes | |
+| Is this **BIC** an EMI / digital bank? | yes | |
+| Is this **IBAN** a virtual IBAN from an EMI? | | [api.ibanforge.com](https://api.ibanforge.com) — needs IBAN → BIC |
 | Which bank is behind it? | | [api.ibanforge.com](https://api.ibanforge.com) |
 | Swiss SIX clearing rails, QR-IID? | | [api.ibanforge.com](https://api.ibanforge.com) |
 | Is the bank sanctioned (OFAC/EU/UN)? | | [api.ibanforge.com](https://api.ibanforge.com) |
