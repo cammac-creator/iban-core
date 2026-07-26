@@ -1,7 +1,8 @@
-// GENERATED — do not edit. Regenerate: npm run issuers:build
-// Cross-match of the EBA PIR + FCA UK EMI/PI register snapshot
-// (scripts/data/eu-emi-register-2026-05-22.json) against the BIC base, by
-// exact normalized-name match. 925 BIC8 codes.
+// GENERATED FILE — do not edit by hand.
+// A BIC8 -> issuer-type index, built by cross-matching the public EBA Payment
+// Institutions Register and the FCA UK e-money register against a bank
+// identifier directory, on exact normalised-name match. 925 BIC8 codes.
+// Refreshed periodically. Open an issue to report a misclassification.
 import type { IssuerType } from './issuers.js';
 
 export const GENERATED_ISSUERS: Record<string, IssuerType> = {
